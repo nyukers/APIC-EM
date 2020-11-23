@@ -1,7 +1,6 @@
 #
-# Based on: lab1-1-print-hosts.py and 02_print_hosts_sol
+# 
 # Prints out all hosts that are connected to APIC-EM network devices in a tabular list format.
-# Gets an inventory of hosts from \host endpoint.
 # Some fucntions have dependencies.
 #
 
@@ -33,7 +32,7 @@ if resp.status_code != 200:
 # Get the json-encoded content from response
 response_json = resp.json()
 
-# Now create a list of host info to be held in host_list
+# Create a list of host info to be held in host_list
 host_list = []
 i = 0
 for item in response_json["response"]:
