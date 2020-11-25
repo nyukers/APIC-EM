@@ -1,7 +1,8 @@
 #
 # This script retrieves an authentication token from APIC-EM and prints out it's value
-# It is standalone, there is no dependency.
+# It's standalone module.
 #
+# APIC-EM Workshop, 2020
 
 import requests  # Import JSON encoder and decoder module
 import json      # requests module used to send REST requests to API

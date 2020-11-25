@@ -1,6 +1,7 @@
 #
 #This script prints out all network devices that are connected to APIC-EM network devices in a tabular list format.
 #
+# APIC-EM Workshop, 2020
 
 import requests
 import json

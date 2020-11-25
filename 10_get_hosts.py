@@ -1,8 +1,8 @@
-#
 # 
 # Prints out all hosts that are connected to APIC-EM network devices in a tabular list format.
-# Some fucntions have dependencies.
+# Some functions have dependencies.
 #
+# APIC-EM Workshop, 2020
 
 __author__ = 'Nyukers'
 
@@ -23,7 +23,7 @@ headers = {
 resp = requests.get(api_url, headers=headers, verify=False)
 
 # This is the http request status
-print("Status of /host request: ", resp.status_code)
+print("Status of host request: ", resp.status_code)
 
 # Check if the request status was 200/OK
 if resp.status_code != 200:
@@ -45,8 +45,10 @@ for item in response_json["response"]:
     host_list.append( host )
 
 table_header = [
-                "Number",
+                "#",
                 "Type",
-                "IP"
+                "IPv4"
                ]
+# print(tabulate(host_list, table_header, tablefmt="pipe"))
 print(tabulate(host_list, table_header))
+
