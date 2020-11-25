@@ -1,15 +1,14 @@
 #
 # Path Trace Solution
 # APIC-EM Workshop, 2020
-
-
+#
 # ============================
 # Section 1. Setup the environment and variables required to interact with the APIC-EM
 # ============================
 import requests
 import json
 import time
-from apic_em_functions_sol import *
+from apic_em_functions import *
 from tabulate import *
 
 # disables certificate security warning
@@ -41,8 +40,8 @@ print("\n\n")  # prints two blank lines to format output
 # ============================
 
 while True:
-    s_ip = input("Please enter the source host IP address for the path trace: ")
-    d_ip = input("Please enter the destination host IP address for the path trace: ")
+    s_ip = input("Enter the Source host IP address: ")
+    d_ip = input("Enter the Destination host IP address: ")
 
     # Various error traps could be completed here - POSSIBLE CHALLENGE
     if s_ip != "" or d_ip != "":
@@ -56,20 +55,20 @@ while True:
         print("Destination IP address is: ",  path_data["destIP"])  # stud: optional challenge
         break  # Exit loop if values supplied
     else:
-        print("\n\nYOU MUST ENTER IP ADDRESSES TO CONTINUE.\nUSE CTRL-C TO QUIT\n")
+        print("\n\nYou must enter IP addresses to continue.\nUse CTRL-C to Quit\n")
         continue  # Return to beginning of loop and repeat
 
 # ============================
 # Section 4. Initiate the Path Trace and get the flowAnalysisId
 # ============================
 
-# Post request to initiate Path Trace
+# POST request to initiate Path Trace
 resp = requests.post(api_url, json.dumps(path_data), headers=headers, verify=False)
 
 # Inspect the return, get the Flow Analysis ID, put it into a variable
 resp_json = resp.json()
 flowAnalysisId = resp_json["response"]["flowAnalysisId"]
-print("FLOW ANALYSIS ID: ", flowAnalysisId)
+print("Flow Analysis ID: ", flowAnalysisId)
 
 # ============================
 # Section 5. Check status of Path Trace request, output results when COMPLETED
@@ -87,7 +86,7 @@ while status != "COMPLETED":
     response_json = r.json()
 
     status = response_json["response"]["request"]["status"]
-    print("REQUEST STATUS: ", status)  # Print the status as the loop runs
+    print("#" + str(checks) + " request status: ", status)  # Print the status as the loop runs
     # wait one second before trying again
     time.sleep(1)
     if checks == 15:  # number of iterations before exit of loop; change depending on conditions
