@@ -28,8 +28,8 @@ headers = {
 # ============================
 # Section 2. Display list of devices and IPs by calling get_host() and get_devices()
 # ============================
-print("List of hosts on the network: ")
-print_hosts()
+#print("List of hosts on the network: ")
+#print_hosts()
 print("List of devices on the network: ")
 print_devices()
 
@@ -89,9 +89,10 @@ while status != "COMPLETED":
     print("#" + str(checks) + " request status: ", status)  # Print the status as the loop runs
     # wait one second before trying again
     time.sleep(1)
-    if checks == 15:  # number of iterations before exit of loop; change depending on conditions
+    if checks == 5:  # number of iterations before exit of loop, change due to conditions
         # break the execution
-        raise Exception("Number of status checks exceeds limit. Possible problem with Path Trace.!")
+        #status = "COMPLETED"
+        raise Exception("Number of status checks exceeds limit. Possible problem with Path Trace!")
     elif status == "FAILED":
         # break the execution
         raise Exception("Problem with Path Trace - FAILED!")
@@ -100,8 +101,6 @@ while status != "COMPLETED":
 # ============================
 # Section 6. Display results
 # ============================
-
-# Add values
 # Create required variables
 # the source address for the trace, printed below
 path_source = response_json["response"]["request"]["sourceIP"]
@@ -113,8 +112,7 @@ networkElementsInfo = response_json["response"]["networkElementsInfo"]
 
 all_devices = []  # create a list variable to store the hosts and devices
 device_no = 1  # this variable is an ordinal number for each device, incremented in the loop
-# Iterate through returned Path Trace JSON and populate list of path
-# information
+# Iterate through returned Path Trace JSON and populate list of path information
 for networkElement in networkElementsInfo:
     # test if the devices DOES NOT have a "name", absence of "name" identifies
     # an end host
