@@ -28,8 +28,8 @@ headers = {
 # ============================
 # Section 2. Display list of devices and IPs by calling get_host() and get_devices()
 # ============================
-#print("List of hosts on the network: ")
-#print_hosts()
+print("List of hosts on the network: ")
+print_hosts()
 print("List of devices on the network: ")
 print_devices()
 
@@ -89,7 +89,7 @@ while status != "COMPLETED":
     print("#" + str(checks) + " request status: ", status)  # Print the status as the loop runs
     # wait one second before trying again
     time.sleep(1)
-    if checks == 5:  # number of iterations before exit of loop, change due to conditions
+    if checks == 15:  # number of iterations before exit of loop, change due to conditions
         # break the execution
         #status = "COMPLETED"
         raise Exception("Number of status checks exceeds limit. Possible problem with Path Trace!")
@@ -101,8 +101,7 @@ while status != "COMPLETED":
 # ============================
 # Section 6. Display results
 # ============================
-# Create required variables
-# the source address for the trace, printed below
+# Parse required variables the source address for the trace from JSON
 path_source = response_json["response"]["request"]["sourceIP"]
 # the destination address for the trace, printed below
 path_dest = response_json["response"]["request"]["destIP"]
@@ -124,6 +123,7 @@ for networkElement in networkElementsInfo:
     # if there is the "name" key, then it is an intermediary device
     else:  # assigns values to the variables for the intermediary devices
         name = networkElement["name"]
+        devtype = networkElement["type"]
         ip = networkElement["ip"]
         if "egressInterface" in networkElement:  # not all intermediary devices have ingress and egress interfaces
             egressInterfaceName = networkElement["egressInterface"]["physicalInterface"]["name"]
@@ -139,6 +139,7 @@ for networkElement in networkElementsInfo:
     device = [
                 device_no,
                 name,
+                devtype,
                 ip,
                 ingressInterfaceName,
                 egressInterfaceName
@@ -152,8 +153,9 @@ print("Path trace: \n Source: ", path_source, "\n Destination: ", path_dest)
 # print the table of devices in the path trace
 print("List of devices on path:")
 table_header = [
-                "Item",
+                "#",
                 "Name",
+                "Type",
                 "IP",
                 "Ingress Int",
                 "Egress Int"

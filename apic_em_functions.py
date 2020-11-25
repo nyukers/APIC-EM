@@ -76,7 +76,8 @@ def print_hosts():
                     "Type",
                     "IPv4"
                    ]
-    print(tabulate(host_list, table_header))
+    #print(tabulate(host_list, table_header))
+    print(tabulate(host_list, table_header, tablefmt="grid"))
 
 
 def print_devices():
