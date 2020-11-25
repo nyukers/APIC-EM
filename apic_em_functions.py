@@ -71,11 +71,11 @@ def print_hosts():
         host_list.append( host )
 
     table_header = [
-                    "Number",
+                    "#",
                     "Type",
-                    "IP"
+                    "IPv4"
                    ]
-    print( tabulate(host_list, table_header) )
+    print(tabulate(host_list, table_header))
 
 
 def print_devices():
@@ -110,8 +110,8 @@ def print_devices():
         device_list.append( device )
 
     table_header = [
-                    "Number", 
+                    "#", 
                     "Type", 
-                    "IP"
+                    "IPv4"
                    ]
-    print( tabulate(device_list, table_header) )
+    print(tabulate(device_list, table_header))
