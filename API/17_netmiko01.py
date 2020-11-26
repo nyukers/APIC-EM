@@ -22,3 +22,5 @@ with open('veos.conf', 'w') as config_file:
 output = device.send_config_from_file('veos.conf')
 verification = device.send_command('show run interface Eth6')
 print(verification)
+
+device.disconnect()
