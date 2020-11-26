@@ -9,7 +9,7 @@ from requests.auth import HTTPBasicAuth
 
 def issue_request(device, commands):
     """Make API request to EOS device returning JSON response
-       (Создание запроса API к устройству EOS, возвращающему ответ в формате JSON)
+       (Г‘Г®Г§Г¤Г Г­ГЁГҐ Г§Г ГЇГ°Г®Г±Г  API ГЄ ГіГ±ГІГ°Г®Г©Г±ГІГўГі EOS, ГўГ®Г§ГўГ°Г Г№Г ГѕГ№ГҐГ¬Гі Г®ГІГўГҐГІ Гў ГґГ®Г°Г¬Г ГІГҐ JSON)
      """
 
      auth = HTTPBasicAuth('ntc', 'ntc123')
@@ -30,10 +30,10 @@ def issue_request(device, commands):
 
 def get_lldp_neighbors(device):
 """Get list of neighbors
-(Получение списка соседних устройств
+(ГЏГ®Г«ГіГ·ГҐГ­ГЁГҐ Г±ГЇГЁГ±ГЄГ  Г±Г®Г±ГҐГ¤Г­ГЁГµ ГіГ±ГІГ°Г®Г©Г±ГІГў
 Sample response for a single neighbor:
-Автоматизация с использованием сетевых API ? 281
-(Пример ответа от одного из соседних устройств:)
+ГЂГўГІГ®Г¬Г ГІГЁГ§Г Г¶ГЁГї Г±В ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г­ГЁГҐГ¬ Г±ГҐГІГҐГўГ»Гµ API ? 281
+(ГЏГ°ГЁГ¬ГҐГ° Г®ГІГўГҐГІГ  Г®ГІ Г®Г¤Г­Г®ГЈГ® ГЁГ§ Г±Г®Г±ГҐГ¤Г­ГЁГµ ГіГ±ГІГ°Г®Г©Г±ГІГў:)
     {
       "ttl": 120,
       "neighborDevice": "eos-spine2.ntc.com",
@@ -44,18 +44,18 @@ Sample response for a single neighbor:
 commands = ['show lldp neighbors']
 response = issue_request(device, commands)
 neighbors = response['result'][0]['lldpNeighbors']
-# соседние устройства (имена) возвращаются в виде списка словарей
+# Г±Г®Г±ГҐГ¤Г­ГЁГҐ ГіГ±ГІГ°Г®Г©Г±ГІГўГ  (ГЁГ¬ГҐГ­Г ) ГўГ®Г§ГўГ°Г Г№Г ГѕГІГ±Гї Гў ГўГЁГ¤ГҐ Г±ГЇГЁГ±ГЄГ  Г±Г«Г®ГўГ Г°ГҐГ©
 return neighbors
 
 def configure_interfaces(device, neighbors):
 """Configure interfaces in a single API call per device
-(Конфигурирование интерфейсов в одном вызове API для каждого устройства)
+(ГЉГ®Г­ГґГЁГЈГіГ°ГЁГ°Г®ГўГ Г­ГЁГҐ ГЁГ­ГІГҐГ°ГґГҐГ©Г±Г®Гў Гў Г®Г¤Г­Г®Г¬ ГўГ»Г§Г®ГўГҐ API Г¤Г«Гї ГЄГ Г¦Г¤Г®ГЈГ® ГіГ±ГІГ°Г®Г©Г±ГІГўГ )
 """
 command_list = ['enable', 'configure']
 for neighbor in neighbors:
     local_interface = neighbor['port']
     if local_interface.startswith('Eth'):
-        # Проход с учетом существующих соседних устройств
+        # ГЏГ°Г®ГµГ®Г¤ Г± ГіГ·ГҐГІГ®Г¬ Г±ГіГ№ГҐГ±ГІГўГіГѕГ№ГЁГµ Г±Г®Г±ГҐГ¤Г­ГЁГµ ГіГ±ГІГ°Г®Г©Г±ГІГў
         description = 'Connects to interface {} on neighbor {}'.format(
             neighbor['neighborPort'],
             neighbor['neighborDevice'])
@@ -66,7 +66,7 @@ for neighbor in neighbors:
 response = issue_request(device, command_list)
 
 if __name__ == "__main__":
-    # Имена устройств являются полными доменными именами FQDN
+    # Г€Г¬ГҐГ­Г  ГіГ±ГІГ°Г®Г©Г±ГІГў ГїГўГ«ГїГѕГІГ±Гї ГЇГ®Г«Г­Г»Г¬ГЁ Г¤Г®Г¬ГҐГ­Г­Г»Г¬ГЁ ГЁГ¬ГҐГ­Г Г¬ГЁ FQDN
     devices = ['eos-spine1', 'eos-spine2']
     for device in devices:
         neighbors = get_lldp_neighbors(device)
