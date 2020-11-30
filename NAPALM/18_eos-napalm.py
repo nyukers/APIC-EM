@@ -12,3 +12,11 @@ device = driver('eos-spine1', 'ntc', 'ntc123')
 
 device.open() # требуется для загрузки регистрационных данных и установления соединения с устройством на основе используемого API
 device.load_replace_candidate(filename='eos-spine1.conf')
+
+diffs = device.compare_config()
+print(diffs)
+
+if diffs:
+    device.commit_config()
+    
+device.rollback()
