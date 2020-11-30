@@ -1,0 +1,10 @@
+- name: DEPLOY CONFIGURATIONS WITH NAPALM
+  napalm_install_config:
+    hostname: "{{ inventory_hostname }}"
+    username: "{{ un }}"
+    password: "{{ pwd }}"
+    dev_os: "{{ os }}"
+    config_file: configs/snmp.conf
+    diff_file: diffs/{{ inventory_hostname }}-snmp.diffs
+    commit_changes: True
+    replace_config: False
