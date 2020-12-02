@@ -1,0 +1,6 @@
+snmp-server location AMERICAS-NJ
+snmp-server contact Joe Smith
+snmp-server community public RO
+snmp-server community public123 RO
+snmp-server community private RW
+snmp-server community secure RW

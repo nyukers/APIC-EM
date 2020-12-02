@@ -1,0 +1,10 @@
+- name: PLAY 2 - ENSURE EOS SNMP CONFIGS ARE DEPLOYED
+  hosts: eos
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: DEPLOY CONFIGS FOR EOS
+      eos_config:
+        src: "./configs/snmp/{{ inventory_hostname }}.cfg"
+        provider: "{{ base_provider }}"

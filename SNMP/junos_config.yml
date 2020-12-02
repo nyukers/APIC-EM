@@ -1,0 +1,10 @@
+- name: PLAY 3 - ENSURE JUNOS SNMP CONFIGS ARE DEPLOYED USING SET COMMANDS
+  hosts: junos
+  connection: local
+  gather_facts: no
+  
+  tasks:
+    - name: DEPLOY CONFIGS FOR JUNOS
+      junos_config:
+        src: "./configs/snmp/{{ inventory_hostname }}.cfg"
+        provider: "{{ base_provider }}"
