@@ -1,0 +1,19 @@
+---
+  - name: PLAY 1 - COLLECT FACTS FOR IOS
+    hosts: iosxe
+    connection: local
+    gather_facts: no
+    
+    tasks:
+      
+      - name: COLLECT FACTS FOR IOS
+        ios_facts:
+          provider: "{{ base_provider }}"
+          
+      - name: DEBUG OS VERSION
+        debug:
+          var: ansible_net_version
+          
+      - name: DEBUG HOSTNAME
+        debug:
+          var: ansible_net_hostname
