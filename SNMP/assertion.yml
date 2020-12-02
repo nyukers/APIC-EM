@@ -1,0 +1,30 @@
+---
+
+  - name: PLAY 1 - ISSUE SHOW COMMANDS
+    hosts: eos
+    connection: local
+    gather_facts: no
+    
+    tasks:
+      - name: RETRIEVE VLANS JSON RESPONSE
+        eos_command:
+          commands:
+            - show vlan brief | json
+          provider: "{{ base_provider }}"
+        register: vlan_data
+        
+      - name: DEBUG VLANS AS JSON
+        debug:
+          var: vlan_data
+      - name: CREATE EXISTING_VLANS FACT TO SIMPLIFY ACCESSING VLANS
+        set_fact:
+          existing_vlan_ids: "{{ vlan_data.stdout.0.vlans.keys() }}"
+
+      - name: DEBUG EXISTING VLAN IDs
+        debug:
+          var: existing_vlan_ids
+          
+      - name: PERFORM COMPLIANCE CHECKS
+        assert:
+        that:
+          - "'20' in existing_vlan_ids"
