@@ -1,0 +1,4 @@
+set snmp location EMEA-IE
+set snmp contact Scott_Grady
+set snmp community public123 authorization read-only
+set snmp community supersecure authorization read-write
