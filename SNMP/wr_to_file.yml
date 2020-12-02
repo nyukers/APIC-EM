@@ -1,0 +1,6 @@
+- name: WRITE DATA TO FILE
+  template:
+    src: basic.j2
+    # этот шаблон был сохранен в каталоге templates
+    dest: ./commands/snmp/{{ inventory_hostname }}.txt
+    # каталоги commands и snmp были созданы вручную
