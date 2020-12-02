@@ -17,3 +17,20 @@
       - name: DEBUG HOSTNAME
         debug:
           var: ansible_net_hostname
+          
+      - name: ISSUE SHOW COMMAND
+        ios_command:
+          commands:
+            - show run | inc snmp-server community
+          provider: "{{ base_provider }}"
+        register: snmp_data
+
+      - name: DEBUG COMMAND STRING RESPONSE WITH JINJA SHORTHAND SYNTAX
+        debug:
+          var: snmp_data.stdout.0
+      
+      - name: DEBUG COMMAND STRING RESPONSE WITH STANDARD PYTHON SYNTAX
+        debug:
+          var: snmp_data['stdout'][0]
+          
+          
