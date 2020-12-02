@@ -1,0 +1,17 @@
+- name: PLAY 4 - CREATE REPORTS
+  hosts: "iosxe,eos,nxos"
+  connection: local
+  gather_facts: no
+  
+  tasks:
+    - name: GENERATE DEVICE SPECIFIC REPORTS
+      template:
+        src: ./reports/facts.j2
+        # these sub-directories were created manually
+        dest: ./reports/facts/{{ inventory_hostname }}.md
+    - name: CREATE MASTER REPORT
+      assemble:
+        src: ./reports/facts/
+        dest: ./reports/master-report.md
+        delimiter: "---"
+      run_once: true
