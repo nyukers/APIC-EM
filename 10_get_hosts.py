@@ -49,6 +49,8 @@ table_header = [
                 "Type",
                 "IPv4"
                ]
-# print(tabulate(host_list, table_header, tablefmt="pipe"))
-print(tabulate(host_list, table_header))
+#print(tabulate(host_list, table_header))
+#print(tabulate(host_list, table_header, tablefmt="grid"))
+print(tabulate(host_list, table_header, tablefmt="rst"))
+
 
