@@ -1,3 +1,2 @@
 # APIC-EM
-APIC-EM Workshop
-(C) Cisco, 2020.
+Cisco APIC-EM Workshop (C), 2020.
