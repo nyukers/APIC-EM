@@ -1,0 +1,41 @@
+interface {{ interface_name }}
+ description {{ interface_description }}
+ switchport access vlan {{ interface_vlan }}
+ switchport mode access
+ 
+# OR 
+ 
+interface {{ interface.name }}
+ description {{ interface.description }}
+{% if interface.uplink %}
+ switchport mode trunk
+{% else %}
+ switchport access vlan {{ interface.vlan }}
+ switchport mode access
+{% endif %}
+
+# OR 
+
+{% for n in range(10) %}
+interface GigabitEthernet0/{{ n+1 }}
+ description {{ interface.description }}
+ switchport access vlan {{ interface.vlan }}
+ switchport mode access
+{% endfor %}
+
+# OR
+
+{% for n in range(10) %}
+interface GigabitEthernet0/{{ n+1 }}
+ description {{ interface.description }}
+{% if n+1 == 1 %}
+ switchport mode trunk
+{% else %}
+ switchport access vlan {{ interface.vlan }}
+ switchport mode access
+{% endif %}
+
+{% endfor %}
+
+
+
