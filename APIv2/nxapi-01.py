@@ -27,6 +27,7 @@ payload=[
     "method": "cli",
     "params": {
       "cmd": "show version",
+	  #"cmd": "hostname nx-osv-1",
       "version": 1
     },
 	"id": 1
@@ -42,4 +43,5 @@ else:
 #    url='https://10.10.20.95/ins'
     response = requests.post(url,data=json.dumps(payload), headers=myheaders,auth=(switchuser,switchpassword),cert=(client_cert,client_private_key),verify=ca_cert).json()
 	
-print("Content of request: ", response['result']['body']['header_str'])
+#print("Content of request: ", response['result']['body']['header_str'])
+print("Current version is: ", response['result']['body']['nxos_ver_str'])
