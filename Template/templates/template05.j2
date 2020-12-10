@@ -1,0 +1,10 @@
+# inheritance в файле шаблона
+# variant 1
+ 
+{% include 'vlans.j2' %}
+
+{% for name, desc in interface_dict.items() %}
+interface {{ name }}
+  description {{ desc }}
+{% endfor %}
+
